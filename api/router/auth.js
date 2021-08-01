@@ -28,11 +28,13 @@ router.post('/login',async (req,res)=>{
         !user && res.status(404).json("user not found");
 
         const validpassword = await bcrypt.compare(req.body.password,user.password)
+        
+
         !validpassword && res.status(400).json("wrong password");
 
         res.status(200).json(user);
     }catch(e){
-        console.log(e);
+        res.status(500).json(e);
     }
 })
 
